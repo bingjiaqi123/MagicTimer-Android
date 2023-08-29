@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">玄学时间匣</string>
+
+    <string name="select_prompt">请选择</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_subtitle1">逢人不说人间事</string>
+    <string name="nav_header_subtitle2">便是人间无事人</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">设置</string>
+
+    <string name="menu_home">主页</string>
+    <string name="menu_add">添加任务</string>
+    <string name="menu_edit">编辑当前任务</string>
+    <string name="menu_context">情境设置</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="KaiTextStyle" parent="android:Widget.TextView">
+        <item name="android:typeface">serif</item>
+    </style>
+</resources>
