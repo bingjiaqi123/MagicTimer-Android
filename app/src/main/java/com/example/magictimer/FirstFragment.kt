@@ -87,9 +87,10 @@ class FirstFragment : Fragment() {
 
         if (tasks.isNotEmpty()) {
             val randomTask = tasks.random()
-            val selectedTask = randomTask.substring(3).trim()
 
-            currentFile.writeText(selectedTask)
+            currentFile.writeText(randomTask)
+
+            val selectedTask = randomTask.substring(3).trim()
 
             val lines = selectedTask.lines()
             val aLine = lines.firstOrNull { it.startsWith("%A") }
@@ -101,6 +102,7 @@ class FirstFragment : Fragment() {
             binding.editTextOutput.setText("暂无适合的任务")
         }
     }
+
 
     private fun moveFilesFromAssets() {
         val fileDir = requireContext().getExternalFilesDir(null)

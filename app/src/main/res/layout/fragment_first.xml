@@ -23,6 +23,8 @@
             android:layout_width="280dp"
             android:layout_height="80dp"
             android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:textSize="24sp"
             android:hint="情境值" />
 
         <LinearLayout
@@ -70,6 +72,7 @@
                 android:layout_width="280dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:textSize="24sp"
                 android:hint="暂无此类任务" />
 
             <Button

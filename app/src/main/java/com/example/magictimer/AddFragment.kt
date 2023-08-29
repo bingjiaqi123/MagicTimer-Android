@@ -10,15 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.magictimer.databinding.FragmentAddBinding
 import java.io.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class AddFragment : Fragment() {
 
-    private var _binding: FragmentAddBinding? = null
-    private val binding get() = _binding!!
-
-    // 定义选中状态与字母的映射关系
     private val contextOptions = mapOf(
         R.id.checkBoxCampusNetwork to 'A',
         R.id.checkBoxDisconnectable to 'B',
@@ -30,6 +24,9 @@ class AddFragment : Fragment() {
         R.id.checkBoxEntertainment to 'H'
     )
 
+    private var _binding: FragmentAddBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,11 +35,16 @@ class AddFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 在这里调用 setupCheckboxListeners 函数
+        setupCheckboxListeners(view)
+
         binding.btnAddReturn.setOnClickListener {
-            NavHostFragment.findNavController(this).navigate(R.id.action_AddFragment_to_FirstFragment)
+            NavHostFragment.findNavController(this)
+                .navigate(R.id.action_AddFragment_to_FirstFragment)
         }
 
         val checkBoxCampusNetwork = view.findViewById<CheckBox>(R.id.checkBoxCampusNetwork)
@@ -124,6 +126,18 @@ class AddFragment : Fragment() {
 
                 readerData.close()
                 writerRule.close()
+
+                // 清空表单数据
+                binding.editTextTaskName.text.clear()
+                binding.editTextTaskDetails.text.clear()
+                binding.spinnerDuration.setSelection(0)
+                binding.spinnerExecutions.setSelection(0)
+
+                // 取消选择所有使用情境
+                for ((checkBoxId, _) in contextOptions) {
+                    val checkBox = view.findViewById<CheckBox>(checkBoxId)
+                    checkBox.isChecked = false
+                }
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -158,12 +172,5 @@ class AddFragment : Fragment() {
         return selectedContexts
     }
 
-    // 获取当前日期时间字符串
-    private fun getCurrentDateTime(): String {
-        val dateFormat = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
-        val currentDate = Date()
-        return dateFormat.format(currentDate)
-    }
+    data class ContextOption(val letter: String, val isSelected: Boolean)
 }
-
-data class ContextOption(val letter: String, val isSelected: Boolean)
