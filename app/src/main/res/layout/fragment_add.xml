@@ -1,0 +1,191 @@
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btnwu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            style="@style/AppButtonStyle" />
+
+        <Button
+            android:id="@+id/btnAddReturn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="返回"
+            android:textColor="#0000FF"
+            android:textSize="22sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/AppButtonStyle" />
+
+        <TextView
+            android:id="@+id/textview_taskName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="任务名称"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/btnAddReturn"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/editText_taskName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="请输入任务名称"
+            app:layout_constraintTop_toBottomOf="@id/textview_taskName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textview_taskDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="任务详情"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/editText_taskName"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/editText_taskDetails"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:hint="请输入任务详情"
+            app:layout_constraintTop_toBottomOf="@id/textview_taskDetails"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textview_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="任务时长"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/editText_taskDetails"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinner_duration"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:entries="@array/duration_array"
+            android:prompt="@string/select_prompt"
+            app:layout_constraintTop_toBottomOf="@id/textview_duration"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textview_executions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="可执行次数"
+            android:textSize="18sp"
+            android:textColor="@color/blue"
+            app:layout_constraintTop_toBottomOf="@id/spinner_duration"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinner_executions"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:entries="@array/executions_array"
+            android:prompt="@string/select_prompt"
+            app:layout_constraintTop_toBottomOf="@id/textview_executions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textview_context"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="适用情境"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/textview_executions"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:columnCount="4"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/spinner_executions">
+
+            <CheckBox
+                android:id="@+id/checkBoxCampusNetwork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="需要校园网" />
+
+            <CheckBox
+                android:id="@+id/checkBoxDisconnectable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="可断网" />
+
+            <CheckBox
+                android:id="@+id/checkBoxLoud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不限外放" />
+
+            <CheckBox
+                android:id="@+id/checkBoxCommute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="通勤"
+                android:buttonTint="@color/checkbox_color" />
+
+            <CheckBox
+                android:id="@+id/checkBoxoutExercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="户外运动" />
+
+            <CheckBox
+                android:id="@+id/checkBoxinExercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="室内运动" />
+
+            <CheckBox
+                android:id="@+id/checkBoxSolitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="独处思考" />
+
+            <CheckBox
+                android:id="@+id/checkBoxEntertainment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="娱乐" />
+        </GridLayout>
+
+        <Button
+            android:id="@+id/btnAddTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:textColor=" #0000FF "
+            android:textSize="22sp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/AppButtonStyle" />
+    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>

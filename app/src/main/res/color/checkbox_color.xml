@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="#00FF00" /> <!-- 被选中时的颜色，这里设置为绿色 -->
+    <item android:color="#000000" /> <!-- 未选中时的颜色 -->
+</selector>

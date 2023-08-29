@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnwu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        style="@style/AppButtonStyle" />
+
+    <Button
+        android:id="@+id/btnEditReturn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="返回"
+        android:textColor="#0000FF"
+        android:textSize="22sp"
+        style="@style/AppButtonStyle" />
+
+    <TextView
+        android:id="@+id/tvEditPoem1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_poem1"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/tvEditPoem2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_poem2"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:padding="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更新"
+            android:textColor="#0000FF"
+            android:textSize="22sp"
+            style="@style/AppButtonStyle" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除"
+            android:textColor="#0000FF"
+            android:textSize="22sp"
+            style="@style/AppButtonStyle"
+            android:layout_marginStart="16dp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etFormData"
+        android:layout_width="360sp"
+        android:layout_height="240sp"
+        android:textSize="16sp"
+        android:hint="当前未选中任务"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
