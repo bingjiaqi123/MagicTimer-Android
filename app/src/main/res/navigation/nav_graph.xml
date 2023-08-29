@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.example.magictimer.FirstFragment"
-        android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
         <action
@@ -25,7 +24,6 @@
     <fragment
         android:id="@+id/AddFragment"
         android:name="com.example.magictimer.AddFragment"
-        android:label="@string/add_fragment_label"
         tools:layout="@layout/fragment_add">
 
         <action
@@ -36,7 +34,6 @@
     <fragment
         android:id="@+id/EditFragment"
         android:name="com.example.magictimer.EditFragment"
-        android:label="@string/edit_fragment_label"
         tools:layout="@layout/fragment_edit"
         tools:ignore="DuplicateIds">
 
@@ -63,7 +60,6 @@
     <fragment
         android:id="@+id/SettingsFragment"
         android:name="com.example.magictimer.SettingsFragment"
-        android:label="@string/settings_fragment_label"
         tools:layout="@layout/fragment_settings"
         tools:ignore="DuplicateIds">
 

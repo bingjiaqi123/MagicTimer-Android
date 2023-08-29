@@ -32,9 +32,9 @@ class AddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddBinding.inflate(inflater, container, false)
+
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,30 +45,6 @@ class AddFragment : Fragment() {
         binding.btnAddReturn.setOnClickListener {
             NavHostFragment.findNavController(this)
                 .navigate(R.id.action_AddFragment_to_FirstFragment)
-        }
-
-        val checkBoxCampusNetwork = view.findViewById<CheckBox>(R.id.checkBoxCampusNetwork)
-        val checkBoxDisconnectable = view.findViewById<CheckBox>(R.id.checkBoxDisconnectable)
-        val checkBoxCommute = view.findViewById<CheckBox>(R.id.checkBoxCommute)
-
-        // 设置勾选状态变化的监听器
-        checkBoxCampusNetwork.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                checkBoxDisconnectable.isChecked = false
-                checkBoxCommute.isChecked = false
-            }
-        }
-
-        checkBoxDisconnectable.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                checkBoxCampusNetwork.isChecked = false
-            }
-        }
-
-        checkBoxCommute.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                checkBoxCampusNetwork.isChecked = false
-            }
         }
 
         binding.btnAddTask.setOnClickListener {
