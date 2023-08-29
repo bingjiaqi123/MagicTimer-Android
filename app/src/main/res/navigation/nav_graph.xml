@@ -45,7 +45,6 @@
     <fragment
         android:id="@+id/ContextFragment"
         android:name="com.example.magictimer.FragmentContext"
-        android:label="ContextFragment"
         tools:layout="@layout/fragment_context">
 
         <action
