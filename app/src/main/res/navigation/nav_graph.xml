@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FirstFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.example.magictimer.FirstFragment"
+        tools:layout="@layout/fragment_first">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_AddFragment"
+            app:destination="@id/AddFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_EditFragment"
+            app:destination="@id/EditFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_SettingsFragment"
+            app:destination="@id/SettingsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AddFragment"
+        android:name="com.example.magictimer.AddFragment"
+        tools:layout="@layout/fragment_add">
+
+        <action
+            android:id="@+id/action_AddFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/EditFragment"
+        android:name="com.example.magictimer.EditFragment"
+        tools:layout="@layout/fragment_edit"
+        tools:ignore="DuplicateIds">
+
+        <action
+            android:id="@+id/action_EditFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ContextFragment"
+        android:name="com.example.magictimer.FragmentContext"
+        tools:layout="@layout/fragment_context">
+
+        <action
+            android:id="@+id/action_ContextFragment_to_SettingsFragment"
+            app:destination="@id/SettingsFragment" />
+
+        <action
+            android:id="@+id/action_ContextFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SettingsFragment"
+        android:name="com.example.magictimer.SettingsFragment"
+        tools:layout="@layout/fragment_settings"
+        tools:ignore="DuplicateIds">
+
+        <action
+            android:id="@+id/action_SettingsFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SettingsFragment_to_ContextFragment"
+            app:destination="@id/ContextFragment" />
+    </fragment>
+
+</navigation>

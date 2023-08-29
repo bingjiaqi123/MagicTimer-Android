@@ -1,0 +1,41 @@
+<resources>
+    <array name="duration_array">
+        <item>50分钟</item>
+        <item>30分钟</item>
+        <item>20分钟</item>
+        <item>10分钟</item>
+        <item>5分钟</item>
+        <item>1分钟</item>
+    </array>
+
+    <array name="executions_array">
+        <item>永久</item>
+        <item>1次</item>
+        <item>2次</item>
+        <item>3次</item>
+        <item>4次</item>
+        <item>5次</item>
+    </array>
+
+    <array name="status_array">
+        <item>校内</item>
+        <item>校外</item>
+        <item>通勤</item>
+        <item>家里</item>
+        <item>上铺</item>
+        <item>运动</item>
+    </array>
+
+    <array name="location_array">
+        <item>图书馆</item>
+        <item>教室/会议室</item>
+        <item>宿舍</item>
+    </array>
+
+    <array name="mode_array">
+        <item>室内</item>
+        <item>户外</item>
+    </array>
+
+</resources>
+
