@@ -1,5 +1,8 @@
 package com.example.magictimer.ui.edit
 
+import com.example.magictimer.R
+import com.example.magictimer.getCurrentDateTime
+import com.example.magictimer.setupCheckboxListeners
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +12,7 @@ import android.widget.CheckBox
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.magictimer.R
 import com.example.magictimer.databinding.FragmentEditBinding
-import com.example.magictimer.getCurrentDateTime
-import com.example.magictimer.setupCheckboxListeners
 import java.io.*
 
 class EditFragment : Fragment() {
@@ -38,6 +38,22 @@ class EditFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val currentFile = File(requireContext().getExternalFilesDir(null), "current.txt")
+        try {
+            val formData = readFormData(currentFile)
+            binding.editTextTaskName.setText(formData.taskName)
+            binding.editTextTaskDetails.setText(formData.taskDetails)
+            updateDurationSpinner(formData.selectedDuration)
+            updateExecutionsSpinner(formData.selectedExecutions)
+            updateCheckboxes(formData.selectedOptions)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Toast.makeText(requireContext(), "读取文件失败", Toast.LENGTH_SHORT).show()
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -62,7 +78,18 @@ class EditFragment : Fragment() {
 
         binding.btnDelete.setOnClickListener {
             // 清空表单数据
-            clearFormData()
+                binding.editTextTaskName.text.clear()
+                binding.editTextTaskDetails.text.clear()
+                binding.spinnerDuration.setSelection(0)
+                binding.spinnerExecutions.setSelection(0)
+
+                // 取消选择所有使用情境
+                for ((checkBoxId, _) in contextOptions) {
+                    val checkBox = view.findViewById<CheckBox>(checkBoxId)
+                    if (checkBox != null) {
+                        checkBox.isChecked = false
+                    }
+                }
 
             try {
                 val currentText = currentFile.readText()
@@ -116,7 +143,7 @@ class EditFragment : Fragment() {
                 writerData.write("%D $selectedExecutions\n")
                 writerData.write("%Z ${
                     selectedStatus.joinToString("") {
-                        if (it.isSelected) it.letter.toString() else it.letter.lowercase().toString()
+                        if (it.isSelected) it.letter.toString() else it.letter.lowercase()
                     }
                 }")
                 writerData.write("%1\n")
@@ -133,8 +160,18 @@ class EditFragment : Fragment() {
                 Toast.makeText(requireContext(), "更新成功", Toast.LENGTH_SHORT).show()
 
                 // 清空表单数据
-                clearFormData()
+                    binding.editTextTaskName.text.clear()
+                    binding.editTextTaskDetails.text.clear()
+                    binding.spinnerDuration.setSelection(0)
+                    binding.spinnerExecutions.setSelection(0)
 
+                    // 取消选择所有使用情境
+                    for ((checkBoxId, _) in contextOptions) {
+                        val checkBox = view.findViewById<CheckBox>(checkBoxId)
+                        if (checkBox != null) {
+                            checkBox.isChecked = false
+                        }
+                    }
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -217,19 +254,6 @@ class EditFragment : Fragment() {
         var selectedExecutions: String = "",
         var selectedOptions: String = ""
     )
-    private fun clearFormData() {
-        binding.editTextTaskName.text.clear()
-        binding.editTextTaskDetails.text.clear()
-        binding.spinnerDuration.setSelection(0)
-        binding.spinnerExecutions.setSelection(0)
 
-        // 取消选择所有使用情境
-        for ((checkBoxId, _) in contextOptions) {
-            val checkBox = view?.findViewById<CheckBox>(checkBoxId)
-            if (checkBox != null) {
-                checkBox.isChecked = false
-            }
-        }
-    }
     data class ContextOption(val letter: Char, val isSelected: Boolean)
 }

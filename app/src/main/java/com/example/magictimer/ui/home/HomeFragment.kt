@@ -92,7 +92,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun moveFilesFromAssets() {
         val fileDir = requireContext().getExternalFilesDir(null)
         val formRuleFile = File(fileDir, "form_rule.txt")
