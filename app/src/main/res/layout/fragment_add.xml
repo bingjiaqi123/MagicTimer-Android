@@ -156,8 +156,17 @@
                 android:id="@+id/checkBoxCommute"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+<<<<<<< HEAD
+<<<<<<< HEAD
+                android:text="通勤"/>
+=======
                 android:text="通勤"
                 android:buttonTint="@color/checkbox_color" />
+>>>>>>> 7d1d0f3da901a4d42f59f6c321c41bd16a80faa4
+=======
+                android:text="通勤"
+                android:buttonTint="@color/checkbox_color" />
+>>>>>>> 7d1d0f3da901a4d42f59f6c321c41bd16a80faa4
 
             <CheckBox
                 android:id="@+id/checkBoxoutExercise"
