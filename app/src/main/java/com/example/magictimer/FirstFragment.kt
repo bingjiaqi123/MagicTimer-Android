@@ -1,14 +1,11 @@
 package com.example.magictimer
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 import com.example.magictimer.databinding.FragmentFirstBinding
 import java.io.File
@@ -45,27 +42,35 @@ class FirstFragment : Fragment() {
 
         binding.btnFTY.setOnClickListener {
             handleButtonAction("50分钟")
+            loadCurrentTask()
         }
         binding.btnTTY.setOnClickListener {
             handleButtonAction("30分钟")
+            loadCurrentTask()
         }
         binding.btnTY.setOnClickListener {
             handleButtonAction("20分钟")
+            loadCurrentTask()
         }
         binding.btnTN.setOnClickListener {
             handleButtonAction("10分钟")
+            loadCurrentTask()
         }
         binding.btnFV.setOnClickListener {
             handleButtonAction("5分钟")
+            loadCurrentTask()
         }
         binding.btnO.setOnClickListener {
             handleButtonAction("1分钟")
+            loadCurrentTask()
         }
         binding.btnRedo.setOnClickListener {
             handleButtonAction("")
+            loadCurrentTask()
         }
 
         loadContextValue()
+        loadCurrentTask()
     }
 
     private fun handleButtonAction(searchString: String) {
@@ -92,6 +97,7 @@ class FirstFragment : Fragment() {
 
             binding.editTextOutput.setText(processedTask)
         } else {
+            currentFile.writeText("") // 清空current.txt文件
             binding.editTextOutput.setText("暂无适合的任务")
         }
     }
@@ -157,6 +163,24 @@ class FirstFragment : Fragment() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun loadCurrentTask() {
+        val currentFile = File(requireContext().getExternalFilesDir(null), "current.txt")
+
+        if (currentFile.exists()) {
+            val selectedTask = currentFile.readText().trim()
+            if (selectedTask.isNotEmpty()) {
+                val lines = selectedTask.lines()
+                val aLine = lines.firstOrNull { it.startsWith("%A") }
+                val processedTask = aLine?.substring(2)?.trim() ?: ""
+                binding.editTextOutput.setText(processedTask)
+                return
+            }
+        }
+
+        // 当前没有选定的任务，显示默认文本或提示信息
+        binding.editTextOutput.setText("暂无选定任务")
     }
 
     override fun onDestroyView() {

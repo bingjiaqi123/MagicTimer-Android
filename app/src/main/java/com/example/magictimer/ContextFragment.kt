@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import com.example.magictimer.databinding.FragmentAddBinding
 import com.example.magictimer.databinding.FragmentContextBinding
 import java.io.File
 import java.io.FileOutputStream
@@ -113,7 +111,7 @@ class FragmentContext : Fragment(), AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-// 在应用程序启动时复制默认的magicsettings.txt文件
+        // 在应用程序启动时复制默认的magicsettings.txt文件
         val fileDir = requireContext().getExternalFilesDir(null)
         val magicSettingsFile = File(fileDir, "magicsettings.txt")
         if (!magicSettingsFile.exists()) {
@@ -127,7 +125,8 @@ class FragmentContext : Fragment(), AdapterView.OnItemSelectedListener {
                 e.printStackTrace()
             }
         }
-// 在应用程序启动时复制默认的form_rule.txt文件
+
+        // 在应用程序启动时复制默认的form_rule.txt文件
         val formRuleFile = File(fileDir, "form_rule.txt")
         if (!formRuleFile.exists()) {
             try {
@@ -139,10 +138,6 @@ class FragmentContext : Fragment(), AdapterView.OnItemSelectedListener {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-        }
-
-        binding.btnContextConfirm.setOnClickListener {
-            readMagicSettingsAndFormData()
         }
     }
 
@@ -215,52 +210,5 @@ class FragmentContext : Fragment(), AdapterView.OnItemSelectedListener {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-    }
-
-    private fun readMagicSettingsAndFormData() {
-        val magicSettingsFile = File(requireContext().getExternalFilesDir(null), "magicsettings.txt")
-        val formDataFile = File(requireContext().getExternalFilesDir(null), "form_data.txt")
-        val formRuleFile = File(requireContext().getExternalFilesDir(null), "form_rule.txt")
-
-        if (magicSettingsFile.exists() && formDataFile.exists()) {
-            val magicSettingsContent = magicSettingsFile.readText()
-            val formDataContent = formDataFile.readText()
-
-            val zLine = magicSettingsContent.lines().find { it.startsWith("%Z") }
-            if (zLine != null && (zLine.contains("1") || zLine.contains("2") || zLine.contains("3") || zLine.contains("4") || zLine.contains("5") || zLine.contains("6") || zLine.contains("7") || zLine.contains("8") || zLine.contains("9"))) {
-                val tasks = extractTasks(formDataContent)
-
-                formRuleFile.writeText("") // Clear the existing content of form_rule.txt
-
-                formRuleFile.bufferedWriter().use { writer ->
-                    for (task in tasks) {
-                        if (shouldSkipTask(task, zLine)) continue
-                        writer.write(task)
-                        writer.newLine()
-                    }
-                }
-            }
-        }
-    }
-
-    private fun shouldSkipTask(task: String, zLine: String): Boolean {
-        val taskZLine = task.lines().find { it.startsWith("%Z") }
-        return when {
-            zLine.contains("1") && taskZLine != null && taskZLine.contains("cdefgh") -> true
-            zLine.contains("2") && taskZLine != null && taskZLine.contains("cdefgh") -> true
-            zLine.contains("3") && (taskZLine == null || !(taskZLine.contains("a") && taskZLine.contains("e"))) -> true
-            zLine.contains("4") && (taskZLine == null || !(taskZLine.contains("a") && taskZLine.contains("efg"))) -> true
-            zLine.contains("5") && taskZLine != null && (taskZLine.contains("a") || taskZLine.contains("d")) -> true
-            zLine.contains("6") && (taskZLine == null || !(taskZLine.contains("a") && taskZLine.contains("e"))) -> true
-            zLine.contains("7") && (taskZLine == null || !(taskZLine.contains("a") && taskZLine.contains("e"))) -> true
-            zLine.contains("8") && taskZLine != null && taskZLine.contains("F") -> true
-            zLine.contains("9") && taskZLine != null && taskZLine.contains("E") -> true
-            else -> false
-        }
-    }
-
-    private fun extractTasks(formDataContent: String): List<String> {
-        val pattern = Regex("%[01].*?\\n(?:%[^01].*?\\n)*") // 匹配%0行和%1行开始的任务
-        return pattern.findAll(formDataContent).map { it.value }.toList()
     }
 }

@@ -83,15 +83,6 @@
             android:layout_height="48dp"
             android:entries="@array/mode_array" />
 
-        <Button
-            android:id="@+id/btnContextConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="确认"
-            android:textColor="#0000FF"
-            android:textSize="22sp"
-            style="@style/AppButtonStyle" />
-
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

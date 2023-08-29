@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.magictimer.R
 import com.example.magictimer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
