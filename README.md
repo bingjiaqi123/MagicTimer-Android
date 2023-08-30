@@ -10,11 +10,15 @@
 
 此外，点击首页下方的6个时间按钮也可以进行任务抽取，我将在添加任务部分具体介绍。
 
-![首页1](https://github.com/bingjiaqi123/MagicTimer-Android/assets/114491372/c2fac190-09db-4198-878d-96000cd6dc3f)
+![首页1](https://github.com/bingjiaqi123/MagicTimer-Android/assets/114491372/840eed88-889a-4845-9e35-7ca7b969017d)
 
 ### 添加任务
 
-点击首页的添加按钮，即可进入添加任务界面，用户输入任务名称、任务详情，选择任务时长、可执行次数，勾选适用情境（可多选），点击确定按钮即可添加任务到本地的form_data.txt文件和form_rule.txt文件中，支持连续提交任务。
+点击首页的添加按钮，即可进入添加任务界面。
+
+![添加按钮](https://github.com/bingjiaqi123/MagicTimer-Android/assets/114491372/b80821b7-7653-4e45-9add-4a4f450eea10)
+
+用户输入任务名称、任务详情，选择任务时长、可执行次数，勾选适用情境（可多选），点击确定按钮即可添加任务到本地的form_data.txt文件和form_rule.txt文件中，支持连续提交任务。
 
 ### 查看当前任务信息
 
