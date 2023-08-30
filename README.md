@@ -22,15 +22,19 @@
 
 ![添加页面](https://github.com/bingjiaqi123/MagicTimer-Android/assets/114491372/f1c7d69a-0ab9-41f7-b698-6892b47d2895)
 
-### 查看当前任务信息
+### 查看当前任务信息/编辑/删除当前任务
 
-点击首页的编辑按钮，即可进入编辑任务界面，文本框里会显示当前的任务信息。
+点击首页的编辑按钮，即可进入编辑任务界面。
 
-### 编辑/删除当前任务
+![编辑按钮](https://github.com/bingjiaqi123/MagicTimer-Android/assets/114491372/404dd4d1-2e5f-46de-a731-dfe2e6e2a479)
+
+文本框里会显示当前的任务信息。
+
+![编辑页面](https://github.com/bingjiaqi123/MagicTimer-Android/assets/114491372/2928a6c2-c458-4f1d-840f-f58ca06af537)
 
 编辑任务界面采用和添加任务界面相同的表单，修改数据后点击更新按钮，即可更新当前的任务，支持对任务名称、任务详情、任务时长、可执行次数。适用情境的编辑；
 
-点击删除按钮即可从form_data.txt文件和form_rule.txt文件中删除此任务，抽签状态回归“暂无选中任务”状态；
+点击删除按钮即可从form_data.txt文件和form_rule.txt文件中删除此任务，抽签状态回归“暂无选中任务”。
 
 ### 情境设置
 
