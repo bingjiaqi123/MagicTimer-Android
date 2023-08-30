@@ -8,7 +8,7 @@
 
 点击首页的刷新按钮，即可进行任务抽取，如果没有符合条件的任务，会显示“暂无选定任务”。初始是没有任务的，用户可以自行添加。
 
-![首页](https://github.com/bingjiaqi123/MagicTimer-Android/assets/114491372/95514ec5-a2fd-4fbc-bee8-be8cc2e06a9a)
+![首页1](https://github.com/bingjiaqi123/MagicTimer-Android/assets/114491372/c2fac190-09db-4198-878d-96000cd6dc3f)
 
 此外，点击首页下方的6个时间按钮也可以进行任务抽取，我将在添加任务部分具体介绍。
 
