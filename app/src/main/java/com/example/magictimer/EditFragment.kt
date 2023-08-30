@@ -1,5 +1,6 @@
 package com.example.magictimer
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,18 +37,25 @@ class EditFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 在这里调用 setupCheckboxListeners 函数
-        setupCheckboxListeners(view)
+        val currentFile = File(requireContext().getExternalFilesDir(null), "current.txt")
+        val formDataFile = File(requireContext().getExternalFilesDir(null), "form_data.txt")
+        val formRuleFile = File(requireContext().getExternalFilesDir(null), "form_rule.txt")
+        val currentText = currentFile.readText()
+        val formDataText = formDataFile.readText()
+        val formRuleText = formRuleFile.readText()
 
         binding.btnAddReturn.setOnClickListener {
             NavHostFragment.findNavController(this)
                 .navigate(R.id.action_EditFragment_to_FirstFragment)
         }
 
-        val currentFile = File(requireContext().getExternalFilesDir(null), "current.txt")
+        // 在这里调用 setupCheckboxListeners 函数
+        setupCheckboxListeners(view)
+
         try {
             val formData = readFormData(currentFile)
             binding.editTextTaskName.setText(formData.taskName)
@@ -60,17 +68,11 @@ class EditFragment : Fragment() {
             Toast.makeText(requireContext(), "读取文件失败", Toast.LENGTH_SHORT).show()
         }
 
-        val formDataFile = File(requireContext().getExternalFilesDir(null), "form_data.txt")
-        val formRuleFile = File(requireContext().getExternalFilesDir(null), "form_rule.txt")
-
             binding.btnDelete.setOnClickListener {
                 // 清空表单数据
                 clearFormData()
 
             try {
-                val currentText = currentFile.readText()
-                val formDataText = formDataFile.readText()
-                val formRuleText = formRuleFile.readText()
                 val updatedFormDataText = formDataText.replace(currentText, "")
                 formDataFile.writeText(updatedFormDataText)
                 val updatedFormRuleText = formRuleText.replace(currentText, "")
@@ -83,9 +85,6 @@ class EditFragment : Fragment() {
         }
 
         binding.btnUpdate.setOnClickListener {
-            val currentText = currentFile.readText()
-            val formDataText = formDataFile.readText()
-            val formRuleText = formRuleFile.readText()
             val updatedFormDataText = formDataText.replace(currentText, "")
             formDataFile.writeText(updatedFormDataText)
             val updatedFormRuleText = formRuleText.replace(currentText, "")
@@ -107,8 +106,7 @@ class EditFragment : Fragment() {
             // 写入文件
             try {
                 // 更新current.txt文件
-                val fileData = File(requireContext().getExternalFilesDir(null), "current.txt")
-                val fosData = FileOutputStream(fileData)
+                val fosData = FileOutputStream(currentFile)
                 val writerData = BufferedWriter(OutputStreamWriter(fosData))
 
                 writerData.write("%0 Task\n")
@@ -119,7 +117,7 @@ class EditFragment : Fragment() {
                 writerData.write("%D $selectedExecutions\n")
                 writerData.write("%Z ${
                     selectedStatus.joinToString("") {
-                        if (it.isSelected) it.letter.toString() else it.letter.lowercase().toString()
+                        if (it.isSelected) it.letter.toString() else it.letter.lowercase()
                     }
                 }")
                 writerData.write("%1\n")
@@ -127,11 +125,11 @@ class EditFragment : Fragment() {
                 writerData.close()
 
                 // 将current.txt的内容追加到form_data.txt
-                val formDataText = fileData.readText()
-                formDataFile.appendText(formDataText)
+                val currentText = currentFile.readText()
+                formDataFile.appendText(currentText)
 
                 // 将current.txt的内容追加到form_rule.txt
-                formRuleFile.appendText(formDataText)
+                formRuleFile.appendText(currentText)
 
                 Toast.makeText(requireContext(), "更新成功", Toast.LENGTH_SHORT).show()
 
