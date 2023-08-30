@@ -57,10 +57,16 @@ class EditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val currentFile = File(requireContext().getExternalFilesDir(null), "current.txt")
+        val formDataFile = File(requireContext().getExternalFilesDir(null), "form_data.txt")
+        val formRuleFile = File(requireContext().getExternalFilesDir(null), "form_rule.txt")
+        val currentText = currentFile.readText()
+        val formDataText = formDataFile.readText()
+        val formRuleText = formRuleFile.readText()
+
         // 在这里调用 setupCheckboxListeners 函数
         setupCheckboxListeners(view)
 
-        val currentFile = File(requireContext().getExternalFilesDir(null), "current.txt")
         try {
             val formData = readFormData(currentFile)
             binding.editTextTaskName.setText(formData.taskName)
@@ -73,28 +79,11 @@ class EditFragment : Fragment() {
             Toast.makeText(requireContext(), "读取文件失败", Toast.LENGTH_SHORT).show()
         }
 
-        val formDataFile = File(requireContext().getExternalFilesDir(null), "form_data.txt")
-        val formRuleFile = File(requireContext().getExternalFilesDir(null), "form_rule.txt")
-
         binding.btnDelete.setOnClickListener {
             // 清空表单数据
-                binding.editTextTaskName.text.clear()
-                binding.editTextTaskDetails.text.clear()
-                binding.spinnerDuration.setSelection(0)
-                binding.spinnerExecutions.setSelection(0)
-
-                // 取消选择所有使用情境
-                for ((checkBoxId, _) in contextOptions) {
-                    val checkBox = view.findViewById<CheckBox>(checkBoxId)
-                    if (checkBox != null) {
-                        checkBox.isChecked = false
-                    }
-                }
+            clearFormData()
 
             try {
-                val currentText = currentFile.readText()
-                val formDataText = formDataFile.readText()
-                val formRuleText = formRuleFile.readText()
                 val updatedFormDataText = formDataText.replace(currentText, "")
                 formDataFile.writeText(updatedFormDataText)
                 val updatedFormRuleText = formRuleText.replace(currentText, "")
@@ -107,9 +96,6 @@ class EditFragment : Fragment() {
         }
 
         binding.btnUpdate.setOnClickListener {
-            val currentText = currentFile.readText()
-            val formDataText = formDataFile.readText()
-            val formRuleText = formRuleFile.readText()
             val updatedFormDataText = formDataText.replace(currentText, "")
             formDataFile.writeText(updatedFormDataText)
             val updatedFormRuleText = formRuleText.replace(currentText, "")
@@ -131,8 +117,7 @@ class EditFragment : Fragment() {
             // 写入文件
             try {
                 // 更新current.txt文件
-                val fileData = File(requireContext().getExternalFilesDir(null), "current.txt")
-                val fosData = FileOutputStream(fileData)
+                val fosData = FileOutputStream(currentFile)
                 val writerData = BufferedWriter(OutputStreamWriter(fosData))
 
                 writerData.write("%0 Task\n")
@@ -151,7 +136,7 @@ class EditFragment : Fragment() {
                 writerData.close()
 
                 // 将current.txt的内容追加到form_data.txt
-                val formDataText = fileData.readText()
+                val formDataText = currentFile.readText()
                 formDataFile.appendText(formDataText)
 
                 // 将current.txt的内容追加到form_rule.txt
@@ -160,18 +145,8 @@ class EditFragment : Fragment() {
                 Toast.makeText(requireContext(), "更新成功", Toast.LENGTH_SHORT).show()
 
                 // 清空表单数据
-                    binding.editTextTaskName.text.clear()
-                    binding.editTextTaskDetails.text.clear()
-                    binding.spinnerDuration.setSelection(0)
-                    binding.spinnerExecutions.setSelection(0)
+                clearFormData()
 
-                    // 取消选择所有使用情境
-                    for ((checkBoxId, _) in contextOptions) {
-                        val checkBox = view.findViewById<CheckBox>(checkBoxId)
-                        if (checkBox != null) {
-                            checkBox.isChecked = false
-                        }
-                    }
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -254,6 +229,19 @@ class EditFragment : Fragment() {
         var selectedExecutions: String = "",
         var selectedOptions: String = ""
     )
+    private fun clearFormData() {
+        binding.editTextTaskName.text.clear()
+        binding.editTextTaskDetails.text.clear()
+        binding.spinnerDuration.setSelection(0)
+        binding.spinnerExecutions.setSelection(0)
 
+        // 取消选择所有使用情境
+        for ((checkBoxId, _) in contextOptions) {
+            val checkBox = view?.findViewById<CheckBox>(checkBoxId)
+            if (checkBox != null) {
+                checkBox.isChecked = false
+            }
+        }
+    }
     data class ContextOption(val letter: Char, val isSelected: Boolean)
 }

@@ -61,7 +61,6 @@ class HomeFragment : Fragment() {
         loadContextValue()
         loadCurrentTask()
     }
-
     private fun handleButtonAction(searchString: String) {
         val formRuleFile = File(requireContext().getExternalFilesDir(null), "form_rule.txt")
         val currentFile = File(requireContext().getExternalFilesDir(null), "current.txt")
@@ -75,23 +74,32 @@ class HomeFragment : Fragment() {
             .toList()
 
         if (tasks.isNotEmpty()) {
-            val randomTask = tasks.random()
+            val currentTask = currentFile.readText()
 
-            currentFile.writeText(randomTask)
+            // 过滤掉已存在于current.txt文件中的任务
+            val availableTasks = tasks.filterNot { it == currentTask }
 
-            val selectedTask = randomTask.substring(3).trim()
+            if (availableTasks.isNotEmpty()) {
+                val randomTask = availableTasks.random()
 
-            val lines = selectedTask.lines()
-            val aLine = lines.firstOrNull { it.startsWith("%A") }
-            val processedTask = aLine?.substring(2)?.trim() ?: ""
+                currentFile.writeText(randomTask)
 
-            binding.editTextOutput.setText(processedTask)
+                val selectedTask = randomTask.substring(3).trim()
+
+                val lines = selectedTask.lines()
+                val aLine = lines.firstOrNull { it.startsWith("%A") }
+                val processedTask = aLine?.substring(2)?.trim() ?: ""
+
+                binding.editTextOutput.setText(processedTask)
+            } else {
+                currentFile.writeText("") // 清空current.txt文件
+                binding.editTextOutput.setText("暂无适合的任务")
+            }
         } else {
             currentFile.writeText("") // 清空current.txt文件
             binding.editTextOutput.setText("暂无适合的任务")
         }
     }
-
     private fun moveFilesFromAssets() {
         val fileDir = requireContext().getExternalFilesDir(null)
         val formRuleFile = File(fileDir, "form_rule.txt")
